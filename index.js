@@ -40,6 +40,14 @@ async function run() {
 
       });
 
+      app.post("/Book", async (req, res) => {
+        const user = req.body;
+           console.log(user);
+        const result = await bookCollection.insertOne(user);
+        console.log(result);
+        res.send(result);
+      });
+
       app.get("/Book", async (req, res) => {
         const result = await bookCollection.find().toArray();
         console.log(result);

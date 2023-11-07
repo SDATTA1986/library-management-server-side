@@ -31,9 +31,17 @@ async function run() {
       //  await client.connect();
        
       const userCollection=client.db("BookCategory").collection("Category");
+      const bookCollection=client.db("AllBook").collection("Book");
 
       app.get("/Category", async (req, res) => {
         const result = await userCollection.find().toArray();
+        console.log(result);
+        res.send(result);
+
+      });
+
+      app.get("/Book", async (req, res) => {
+        const result = await bookCollection.find().toArray();
         console.log(result);
         res.send(result);
 

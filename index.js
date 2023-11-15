@@ -57,20 +57,42 @@ async function run() {
 
     app.patch("/Book/:id", async (req, res) => {
       const id = req.params.id;
-      const filter = { _id: new ObjectId(id) }
-      //  const options={upsert:true};
+      const filter = { _id: new ObjectId(id) };
       const updatedProduct = req.body;
-      if (!isNaN(updatedProduct.quantity)) {
-    updatedProduct.quantity = parseInt(updatedProduct.quantity);
-  } else {
-    updatedProduct.quantity = 0;
-  }
+  
+      // Ensure that Quantity is a valid number
+      // if (!isNaN(updatedProduct.quantity)) {
+      //   updatedProduct.quantity = parseInt(updatedProduct.quantity);
+      // } else {
+      //   updatedProduct.quantity = 0;
+      // }
+      console.log(updatedProduct);
       const product = {
         $set: {
-          Quantity: updatedProduct.quantity,
-
+          Quantity: updatedProduct.Quantity,
         }
-      }
+      };
+      const result = await bookCollection.updateOne(filter, product);
+      res.send(result);
+    })
+
+    app.patch("/Booking/:Name", async (req, res) => {
+      const Name = req.params.Name;
+      const filter = { Name: Name };
+      const updatedProduct = req.body;
+  
+      // Ensure that Quantity is a valid number
+      // if (!isNaN(updatedProduct.quantity)) {
+      //   updatedProduct.quantity = parseInt(updatedProduct.quantity);
+      // } else {
+      //   updatedProduct.quantity = 0;
+      // }
+      console.log(updatedProduct);
+      const product = {
+        $set: {
+          Quantity: updatedProduct.Quantity,
+        }
+      };
       const result = await bookCollection.updateOne(filter, product);
       res.send(result);
     })
